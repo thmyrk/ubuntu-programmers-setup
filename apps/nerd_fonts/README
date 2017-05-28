@@ -1,0 +1,12 @@
+Nerdfonts
+---------
+https://nerdfonts.com/
+
+Script
+------
+Script downloads Nerd font ttf files and install configuration file for the fontconfig
+which adds preference for the symbols from Nerd font for common fonts.
+
+Configuration file taken from
+https://github.com/ryanoasis/nerd-fonts/blob/master/10-nerd-font-symbols.conf
+and adjusted to support Hack font.

@@ -9,16 +9,18 @@ filetype off					" force reloading *after* Vundle loaded
 let mapleader=","
 let maplocalleader=",,"
 
-" Must be at the beginning because later plugins change some colors
-colorscheme darkblue
-
 " Vundle configuration
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-""" Plugins {{{
+" 24 bit colors
+if (has("termguicolors"))
+	set termguicolors
+endif
 
-Plugin 'gmarik/Vundle.vim.git'
+
+""" Plugins {{{
+Plugin 'VundleVim/Vundle.vim'
 
 " Suport for http://editorconfig.org/
 Plugin 'editorconfig/editorconfig-vim'
@@ -116,6 +118,10 @@ Plugin 'scrooloose/nerdtree'
 
 "     nmap <leader>y :YRShow<cr>
 
+" <count>ai         (A)n (I)ndentation level and line above. 
+" <count>ii         (I)nner (I)ndentation level (no line above). 
+" <count>aI         (A)n (I)ndentation level and lines above/below. 
+" <count>iI         (I)nner (I)ndentation level (no lines above/below).
 Plugin 'michaeljsmith/vim-indent-object'
 let g:indentobject_meaningful_indentation = ["haml", "sass", "python", "yaml", "markdown"]
 
@@ -146,6 +152,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'bling/vim-airline'
 	" Font installation for airline:
 	" https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
+	" But we use Nerd font which contain powerline symbols
 	let g:airline_powerline_fonts = 1
 	let g:airline#extensions#tabline#enabled = 1
 
@@ -176,10 +183,17 @@ Plugin 'scrooloose/syntastic.git'
 	let g:syntastic_auto_jump = 1
 	let g:syntastic_mode_map = { 'mode': 'active',
 				\ 'active_filetypes': [],
-				\ 'passive_filetypes': ['java', 'c'] }
+				\ 'passive_filetypes': ['java'] }
 
 " Shows Git diffs in a bar on the left
 Plugin 'airblade/vim-gitgutter.git'
+	" ]c - Jump to next hunk
+	" [c - Jump to previous hunk
+	" <Leader>hs - Stage hunk
+	" <Leader>hu - Undo stage hunk
+	" <Leader>hp - Preview hunk stages
+	" ic - text object consisting of all lines in hunk
+	" ac - the same as above plus any trailing empty lines
 
 	let g:gitgutter_sign_added = '▌'
 	let g:gitgutter_sign_modified = '▌'
@@ -187,6 +201,11 @@ Plugin 'airblade/vim-gitgutter.git'
 	let g:gitgutter_sign_removed_first_line = '¯'
 	let g:gitgutter_sign_column_always = 1
 
+" VIM Table Mode
+" ,tm - Toggle Table Mode
+" i| & a| - inner and around cell
+" ,tfa - add formula
+" ,tfe - evaluate formulas
 Plugin 'dhruvasagar/vim-table-mode'
 
 " Write HTML quickly
@@ -205,14 +224,40 @@ Plugin 'vim-scripts/sketch.vim'
 
 " Utl - open link on Ctrl-Enter
 Plugin 'vim-scripts/utl.vim'
-	" (Mapping for Ctrl-Enter created using Ctrl-V and then pressing Ctrl-Enter)
-	inoremap OM :Utl<CR>
-	nnoremap OM :Utl<CR>
+	" Ctrl-Enter does not work in gnome-terminal
+	" Ctrl-g - go to link
+	inoremap <c-g> :Utl<CR>
+	nnoremap <c-g> :Utl<CR>
+	" Examples:
+	" 1. Go to reference
+	" 	<url:#r=test>
+	" 	id=test
+	" 2. Search text
+	"   <url:#tn=as81ad>
+	"   as81ad
+	" 3. Search text backward
+	" 	<url:#tp=as81ad>
+	" 4. Go to file
+	" 	<url:.bashrc>
+	" 4. Go to line, absolute or relative
+	"	<url:#line=+1>
+	" 5. Vim help
+	" 	<url:vimhelp::ls>
+	" 6. Vim script
+	" 	<url:vimscript:call input('Hit %3creturn%3e to continue')>
+	" 	<url:vimscript:!cat %>
+	" 7. Custom scheme
+	" 	<url:wiki:Quark>
+	fu! Utl_AddressScheme_wiki(url, fragment, dispMode)		" url= wiki:Quark
+		let article = UtlUri_unescape( UtlUri_opaque(a:url) )	" btId = Quark
+		let url = 'https://en.wikipedia.org/wiki/'.article
+		return  Utl_AddressScheme_http(url, a:fragment, a:dispMode)
+	endfu
 
 " YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
-	let g:ycm_key_list_select_completion = [ '<Down>', '<c-j>' ]
-	let g:ycm_key_list_previous_completion = [ '<Up>', '<c-k>' ]
+"Plugin 'Valloric/YouCompleteMe'
+"	let g:ycm_key_list_select_completion = [ '<Down>', '<c-j>' ]
+"	let g:ycm_key_list_previous_completion = [ '<Up>', '<c-k>' ]
 
 
 """ Snippets
@@ -224,6 +269,10 @@ Plugin 'honza/vim-snippets' " Snippets
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 	" If you want :UltiSnipsEdit to split your window.
 	let g:UltiSnipsEditSplit="vertical"
+
+" Zeal support
+" <leader>z
+Plugin 'KabbAmine/zeavim.vim'
 
 " Syntax support
 Plugin 'tpope/vim-haml'
@@ -237,9 +286,13 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'vim-scripts/fish.vim'
 Plugin 'tfnico/vim-gradle'
 Plugin 'dag/vim-fish'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'evanmiller/nginx-vim-syntax'
+Plugin 'hashivim/vim-terraform'
+	" Support for vim-commentary for terraform files
+	autocmd FileType terraform setlocal commentstring=#%s
 
 call vundle#end()
-
 
 " Eclim installed out of Vundle
 
@@ -254,7 +307,7 @@ filetype plugin indent on
 " Enable syntax highlighting
 syntax on
 
-" Highlight settings must after 'syntax on'
+" Highlight settings must be after 'syntax on'
 highlight SyntasticErrorSign ctermfg=red ctermbg=0
 highlight SyntasticWarningSign ctermfg=yellow ctermbg=0
 highlight SyntasticStyleErrorSign ctermfg=blue ctermbg=0
@@ -403,9 +456,6 @@ let &t_EI = "\<Esc>[2 q\<Esc>]50;CursorShape=0\x7"
 
 """"
 
-" 256 colors in terminal
-set t_Co=256
-
 " set dark gray cursorline
 set cursorline
 hi CursorLine term=none cterm=none ctermbg=233
@@ -516,4 +566,20 @@ vnoremap <leader>G :w !gist-paste -p -t %:e \| xclip -selection c<cr>
 " Space to toggle folds.
 nnoremap <space> za
 vnoremap <space> za
+
+" Jumps
+" :jumps to see history of locations
+" <number> Alt-Left - jump to previous
+" <number> Alt-Right - jump forward
+nnoremap <A-left> <c-o>
+nnoremap <A-right> <c-i>
+
+" Jenkinsfile support
+au BufReadPost Jenkinsfile* set syntax=groovy
+
+try
+	source ~/.vimrc.local
+catch
+	" No such file? No problem; just ignore it.
+endtry
 
