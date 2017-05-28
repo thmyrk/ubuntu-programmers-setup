@@ -26,3 +26,33 @@ dconf write /org/gnome/desktop/wm/keybindings/panel-main-menu "['<Super>F1']"
 dconf write /org/gnome/desktop/wm/keybindings/close "['<Super>F4']"
 
 
+# Install gnome-shell extensions
+sudo apt-get -y install jq
+
+installExtension() {
+	extensionId="$1"
+	gnomeShellVersion="$(gnome-shell --version)"
+	gnomeShellVersion="${gnomeShellVersion##GNOME Shell }"
+
+
+	extensionMetadata="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$extensionId&shell_version=$gnomeShellVersion")"
+	downloadUrl="$(echo $extensionMetadata | jq -r .download_url)"
+	uuid="$(echo $extensionMetadata | jq -r .uuid)"
+
+	dir=~/.local/share/gnome-shell/extensions/$uuid
+
+
+	mkdir -p "$dir"
+	wget -O "$dir/extension.zip" "https://extensions.gnome.org/$downloadUrl"
+	unzip -f "$dir/extension.zip" -d "$dir"
+	rm "$dir/extension.zip"
+
+	# restart shell
+	dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
+}
+
+installExtension 1031 # TopIcons
+
+nohup gnome-shell --replace &
+
+
