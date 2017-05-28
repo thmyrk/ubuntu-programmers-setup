@@ -22,6 +22,9 @@ endif
 """ Plugins {{{
 Plugin 'VundleVim/Vundle.vim'
 
+" vim-one color theme
+Plugin 'rakr/vim-one'
+
 " Suport for http://editorconfig.org/
 Plugin 'editorconfig/editorconfig-vim'
 
@@ -293,6 +296,13 @@ Plugin 'hashivim/vim-terraform'
 	autocmd FileType terraform setlocal commentstring=#%s
 
 call vundle#end()
+
+let g:one_allow_italics = 1 " italic for comments
+" set background=light " for the light version
+let g:airline_theme='one'
+colorscheme one
+set background=dark " for the dark version
+highlight Normal guibg=black
 
 " Eclim installed out of Vundle
 
