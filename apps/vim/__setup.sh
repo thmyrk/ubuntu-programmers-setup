@@ -8,7 +8,7 @@ sudo apt-get -y install curl git vim
 sudo apt-get -y install aspell-pl
 
 # Install Vundle for plugin management
-mkdir -p ~/.vim/{bundle,tmp,spell}
+mkdir -p ~/.vim/{bundle,tmp,spell,undodir}
 if ! [[ -d ~/.vim/bundle/Vundle.vim ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
