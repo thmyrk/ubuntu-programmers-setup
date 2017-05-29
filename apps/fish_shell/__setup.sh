@@ -12,6 +12,6 @@ sudo apt-get -y install fish grc
 
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 
-fish -c "fisher getopts humanize_duration docker-completion done gitignore grc shark spin oh-my-fish/theme-bobthefish"
+fish -c "fisher getopts humanize_duration docker-completion done gitignore shark spin oh-my-fish/theme-bobthefish"
 
 cp -r conf.d completions functions ~/.config/fish/
