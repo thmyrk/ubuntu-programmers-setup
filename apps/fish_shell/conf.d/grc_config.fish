@@ -1,7 +1,7 @@
 
 # Use GRC only for following commands
 
-set -U grc_plugin_execs cat cvs df diff dig gcc g++ ls ifconfig \
+set -U grc_plugin_execs cat cvs df diff dig gcc g++ ifconfig \
        make mount mtr netstat ps tail traceroute \
        wdiff blkid du dnf docker docker-machine env id ip iostat \
        last lsattr lsblk lspci lsmod lsof getfacl getsebool ulimit uptime nmap \
