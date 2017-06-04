@@ -39,9 +39,9 @@ Plugin 'wikimatze/hammer.vim'
 " Align text
 Plugin 'junegunn/vim-easy-align'
 	" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-    vmap <Enter> <Plug>(EasyAlign)
+	vmap <Enter> <Plug>(EasyAlign)
 	" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-    nmap ga <Plug>(EasyAlign)
+	nmap ga <Plug>(EasyAlign)
 
 " Automatically adds endings to commands or tags
 Plugin 'tpope/vim-endwise'
@@ -97,11 +97,11 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'tpope/vim-eunuch'
 
 Plugin 'scrooloose/nerdtree'
-    " Disable the scrollbars (NERDTree)
-    set guioptions-=r
-    set guioptions-=L
-    " Keep NERDTree window fixed between multiple toggles
-    set winfixwidth
+	" Disable the scrollbars (NERDTree)
+	set guioptions-=r
+	set guioptions-=L
+	" Keep NERDTree window fixed between multiple toggles
+	set winfixwidth
 
 	nnoremap <silent> <F9> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -145,7 +145,7 @@ Plugin 'kien/ctrlp.vim'
 
 " Easily switch between buffers
 Plugin 'troydm/easybuffer.vim'
-    nmap <leader>be :EasyBufferToggle<cr>
+	nmap <leader>be :EasyBufferToggle<cr>
 
 " Multiple cursor mode. Ctrl-N multiple times to create new cursor on the same
 " word below.
@@ -160,10 +160,10 @@ Plugin 'bling/vim-airline'
 	let g:airline#extensions#tabline#enabled = 1
 
 " :ConqueTerm 
-let g:ConqueTerm_SendVisKey = '<leader>r'
-let g:ConqueTerm_ExecFileKey = '<leader>R'
 Plugin 'vim-scripts/Conque-Shell'
 	nnoremap <silent><leader>T :ConqueTermSplit bash<CR>
+	let g:ConqueTerm_SendVisKey = '<leader>r'
+	let g:ConqueTerm_ExecFileKey = '<leader>R'
 
 " Tagbar
 Plugin 'majutsushi/tagbar'
@@ -227,8 +227,7 @@ Plugin 'vim-scripts/sketch.vim'
 
 " Utl - open link on Ctrl-Enter
 Plugin 'vim-scripts/utl.vim'
-	" Ctrl-Enter does not work in gnome-terminal
-	" Ctrl-g - go to link
+	" Ctrl-g - go to link, cannot use ctrl-enter, because it does not work in gnome-terminal
 	inoremap <c-g> :Utl<CR>
 	nnoremap <c-g> :Utl<CR>
 	" Examples:
@@ -339,13 +338,8 @@ set backspace=indent,eol,start
 " Show completion menu with description
 set completeopt=menuone,preview
 
-" Rozszerz domyślną wartość opcji display o wartość lastline. Dzięki niej Vim
-" pokaże tyle ile może z ostatniej linii na ekranie.
+" Do not cut long lines
 set display+=lastline
-
-" Ustwawia szerokość tekstu na 72 znaki. Wyrazy, które przekroczą tę szerokość
-" zostaną przeniesione do następnego wiersza
-" set textwidth=120
 
 " When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
 set formatoptions+=1
@@ -353,27 +347,26 @@ set formatoptions+=1
 " Adds g to :substitute automatically, for example, instead of :%s/foo/bar/g you just type :%s/foo/bar/
 set gdefault
 
-" Uaktywnia na 'twardo' elementy GUI: pasek menu i odrywanie menu
+" Always show menu
 set guioptions=mt
 
-" Domyślnie ukrywa bufor zamiast go zamykać, np. przy komendzie :e
-" Nie będzie pytało o zapisanie zmian w aktualnym buforze
+" Hide the buffer instead of closing it. When using :e,
+" it won't ask to write changes in current buffer.
 set hidden
 
-" Ile elementów historii linii poleceń będzie zapamiętanych
+" History lines to remember
 set history=1000
 
-" Pokazuj wyniki poszukiwania / w czasie wstukiwania łańcucha
+" Show search result during typing
 set incsearch
 
 " ignore case when searching
 set ignorecase
 
-" Linia statusu ma być zawsze pokazywana
+" Always show status line
 set laststatus=2
 
-" Będzie pokazana linijka: domyślnie pokaże linię, kolumnę i procentowe
-" położenie kursora w pliku
+" Show ruler
 set ruler
 
 " Keep at lest 2 lines of context when scrolling
@@ -382,17 +375,14 @@ set scrolloff=2
 "ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smartcase
 
-" Pokaż tryb w lewym dolnym rogu ekranu
+" Show the mode in status line
 set showmode
 
-" Pokaż polecenia w prawym dolnym rogu ekranu
+" Show partially entered commands in status line
 set showcmd
 
-" Regulacja wcięć: nie zamieniaj tabulatorów na spacje, ustaw taby na 4 spacje
+" Use 4 space tab, do not change tabs into spaces
 set tabstop=4 shiftwidth=4
-
-" Nie rób wcięć automatycznie
-"set noautoindent
 
 " Fixes the problem with timeout after pressing ESC key
 " First configure the terminal to send two 'ESC ESC' sequence instead of
@@ -402,12 +392,10 @@ set timeoutlen=500 ttimeoutlen=0
 " CursorHold event trigger after 1 second instead of default 4
 set updatetime=500
 
-" Reguluje przechodzenie między wierszami w różnych trybach przy pomocy różnych
-" komend
+" Move to the next and previous line when using cursor keys 
 set whichwrap=b,s,<,>,[,]
 
-" Ustawia uzupełnianie w linii poleceń. Dzięki temu <Tab> zawsze wyświetli
-" listę możliwości a nie jedną wartość naraz
+" <tab> shows all possible commands
 set wildmode=longest,list
 set wildmenu
 
@@ -420,11 +408,11 @@ set viminfo='100,<10000,s10,h
 
 """ Directories {{{
 
-" Rób backupy plików w katalogu ~/.vim/tmp
+" Make backups in ~/.vim/tmp
 set backup
 set backupdir=~/.vim/tmp
 
-" Pliki swap w katalogu ~/.vim/tmp
+" Make swap files in ~/.vim/tmp
 set dir=~/.vim/tmp
 "
 " Allow undo to work even after exit from vim
@@ -440,10 +428,11 @@ set undoreload=10000 "maximum number lines to save for undo on a buffer
 " map ; to :
 nnoremap ; :
 
-" Przy eksportowaniu pliku jako html używaj css
+" Use css when exporting as HTML
 let g:html_use_css = "1"
 
-" Skrypt do przeglądania manów z wnętrza Vima.
+" Script to show man pages from inside VIM
+" ,K - show man page for keyword under the cursor
 runtime ftplugin/man.vim
 
 
