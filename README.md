@@ -1,4 +1,4 @@
-# ubuntu-programmers-setup
+# Ubuntu Uprogrammers Setup
 Configures Ubuntu as a best working environment for the programmer.
 
 One of the pillars of [DevOps](https://martinfowler.com/bliki/DevOpsCulture.html) is Configuration as a Code.
@@ -14,10 +14,12 @@ That said I think there are some common grounds on which typical programmer conf
 * ensure discoverability - programmers are lazy, enable features in a way that minimizes effort to read manual,
 * automation - make sure everything is easy and as much automated as possible.
 
+I've separated the confiuration scripts into three categories: installation only, non-controversial and opinionated. 
+
 ## Installation only - no configuration
 * [Google Chrome](google_chrome/) - installs Google Chrome
 * [Git](git/) - installs Git
-* [Maven](maven/) - installs Maven
+* [Maven](maven/) - installs latest Maven
 * [timg](timg/) - install console image viewer which uses 24-bit terminal colors to display image
 
 ## Standard - non-controversial configuration, suitable for most developers
