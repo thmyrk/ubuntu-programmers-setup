@@ -1,0 +1,16 @@
+Gnome Terminal configuration:
+- use Hack fonts
+- move tabs to bottom
+- do not show menubar
+- keybindings
+|----------------+-------------|
+| New Tab        | Ctrl-T      |
+| Next Tab       | Shift-Right |
+| Previuos Tab   | Shift-Left  |
+| Toggle Menubar | Ctrl-M      |
+|----------------+-------------|
+- default profile with
+	- 'fish' shell
+	- 8% transparent background
+	- long scrollback history
+- Big profile for presentation

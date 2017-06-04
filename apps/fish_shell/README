@@ -1,0 +1,3 @@
+Fish configuration
+- install fisher
+- install fisher plugins: docker-completion done gitignore shark spin oh-my-fish/theme-bobthefish

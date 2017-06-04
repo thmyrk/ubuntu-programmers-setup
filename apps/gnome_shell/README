@@ -1,0 +1,6 @@
+Gnome Shell configuration:
+- use 4 workspaces
+- Alt-Tab shows only windows from current workspace
+- use Alt-F1, Alt-F2, etc. for switching workspaces
+- use Ctrl-F1, Ctrl-F2, etc. to move window to workspace
+- install TopIcons extension, so legacy application icons are shown at the top
