@@ -276,6 +276,11 @@ Plugin 'honza/vim-snippets' " Snippets
 " <leader>z
 Plugin 'KabbAmine/zeavim.vim'
 
+" Expand Region
+" + - expand
+" _ - shrink
+Plugin 'terryma/vim-expand-region'
+
 " Syntax support
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
