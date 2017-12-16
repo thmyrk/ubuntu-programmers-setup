@@ -1,9 +1,9 @@
 #!/bin/bash
-# comment the scripts you're not interested in
 
 # global variables
 export CPU_ARCHITECTURE="$( lscpu | awk '/Architecture:/ { print $2 }' | { read arch; if ! [ $arch = "x86_64" ]; then echo "386"; else echo "amd64"; fi } )"
 
+# comment the scripts you're not interested in
 selected_scripts=(
   firefox
   fish_shell
@@ -21,7 +21,7 @@ selected_scripts=(
 )
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"
-for SCRIPT in ${selected_scripts}; do
+for SCRIPT in ${selected_scripts[@]}; do
   echo "Installing: $SCRIPT"
   $SCRIPT/__setup.sh
 done
