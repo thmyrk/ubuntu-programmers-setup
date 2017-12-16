@@ -1,6 +1,9 @@
 #!/bin/bash
 # comment the scripts you're not interested in
 
+# global variables
+export CPU_ARCHITECTURE="$( lscpu | awk '/Architecture:/ { print $2 }' | { read arch; if ! [ $arch = "x86_64" ]; then echo "386"; else echo "amd64"; fi } )"
+
 selected_scripts=(
   firefox
   fish_shell
